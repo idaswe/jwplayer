@@ -835,21 +835,21 @@ define([
                 return this;
             },
 
-            /** Adds or updates a button in the player's dock. The button is only displayed when controls are active.
+            /** Adds or updates a button in the player's control bar. The button is only displayed when controls are active.
              * @param {string} img - An image URL to use as the button icon.
-             * @param {string} tooltip - A tooltip label to display when the button is hovered.
+             * @param {string} ariaText - text used for accessibility purposes
              * @param {function} callback - A callback to invoke when the button is clicked.
              * @param {string} id - The id of the button to add or update.
              * @param {string} [btnClass] - CSS classes to add to the button element.
              * @returns {Api}
              */
-            addButton(img, tooltip, callback, id, btnClass) {
-                core.addButton(img, tooltip, callback, id, btnClass);
+            addButton(img, ariaText, callback, id, btnClass) {
+                core.addButton(img, ariaText, callback, id, btnClass);
                 return this;
             },
 
             /**
-             * Removes a button from the player's dock.
+             * Removes a button from the player's control bar.
              * @param {string} id - The id of the button to remove.
              * @returns {Api}
              */

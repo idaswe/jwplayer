@@ -768,40 +768,20 @@ define([
             this.isBeforeComplete = function () {
                 return _model.checkComplete();
             };
-            this.addButton = function(img, tooltip, callback, id, btnClass) {
-                const newButton = {
+            this.addButton = function(img, ariaText, callback, id, btnClass) {
+                const customButton = {
                     img: img,
-                    tooltip: tooltip,
+                    ariaText: ariaText,
                     callback: callback,
                     id: id,
                     btnClass: btnClass
                 };
-                let replaced = false;
-                const dock = _.map(_model.get('dock'), function(dockButton) {
-                    const replaceButton =
-                        dockButton !== newButton &&
-                        dockButton.id === newButton.id;
 
-                    // replace button if its of the same id/type,
-                    // but has different values
-                    if (replaceButton) {
-                        replaced = true;
-                        return newButton;
-                    }
-                    return dockButton;
-                });
-
-                // add button if it has not been replaced
-                if (!replaced) {
-                    dock.push(newButton);
-                }
-
-                _model.set('dock', dock);
+                _model.trigger('addButton', customButton);
             };
             this.removeButton = function(id) {
-                let dock = _model.get('dock') || [];
-                dock = _.reject(dock, _.matches({ id: id }));
-                _model.set('dock', dock);
+                _model.trigger('removeButton', id);
+
             };
             // Delegate trigger so we can run a middleware function before any event is bubbled through the API
             this.trigger = function (type, args) {

@@ -1,6 +1,7 @@
 import { PLAYBACK_RATE_ICON } from 'assets/svg-markup';
 import { Browser, OS } from 'environment/environment';
 import { dvrSeekLimit } from 'view/constants';
+import CustomButton from 'view/controls/components/custom-button';
 
 define([
     'utils/helpers',
@@ -237,6 +238,9 @@ define([
             _model.change('nextUp', this.onNextUp, this);
             _model.change('cues', this.addCues, this);
             _model.change('altText', this.setAltText, this);
+
+            _model.on('addButton', this.addButton, this);
+            _model.on('removeButton', this.removeButton, this);
 
             // Event listeners
 
@@ -498,6 +502,43 @@ define([
 
         onNextUp(model, nextUp) {
             this.elements.next.toggle(!!nextUp);
+        }
+
+        addButton(buttonToAdd = {}) {
+            // TODO: Change to controlbar container
+            const buttonContainer = this.elements.right;
+            let newButton = new CustomButton(
+                buttonToAdd.img,
+                buttonToAdd.ariaText,
+                buttonToAdd.callback,
+                buttonToAdd.id,
+                buttonToAdd.btnClass
+            );
+
+            const buttons = Array.from(buttonContainer.childNodes);
+            for (let i = 0; i < buttons.length; i++) {
+                if (newButton.id === buttons[i].getAttribute('button')) {
+                    buttonContainer.replaceChild(newButton.element(), buttons[i]);
+                    newButton = null;
+                    break;
+                }
+            }
+
+            if (newButton) {
+                buttonContainer.insertBefore(newButton.element(), buttonContainer.firstChild);
+            }
+        }
+
+        removeButton(id = '') {
+            const buttonContainer = this.elements.right;
+            const buttons = Array.from(buttonContainer.childNodes);
+
+            for (let i = 0; i < buttons.length; i++) {
+                if (id === buttons[i].getAttribute('button')) {
+                    buttonContainer.removeChild(buttons[i]);
+                    break;
+                }
+            }
         }
     };
 });
