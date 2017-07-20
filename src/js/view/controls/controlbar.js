@@ -114,10 +114,10 @@ define([
             }
             // Do not show the volume toggle in the mobile SDKs or <iOS10
             if (!_model.get('sdkplatform') && !(OS.iOS && OS.version.major < 10)) {
-                muteButton = button('jw-icon-volume', () => { _api.setMute(); }, vol);
+                muteButton = button('jw-icon-volume', () => _api.setMute(), vol);
             }
 
-            const nextButton = button('jw-icon-next', () => { _api.next(); }, next);
+            const nextButton = button('jw-icon-next', () => _api.next(), next);
 
             if (_model.get('nextUpDisplay')) {
                 new UI(nextButton.element(), { useHover: true, directSelect: true })
@@ -140,8 +140,8 @@ define([
 
             this.elements = {
                 alt: text('jw-text-alt', 'status'),
-                play: button('jw-icon-playback', () => { _api.play(null, reasonInteraction()); }, play),
-                rewind: button('jw-icon-rewind', () => { this.rewind(); }, rewind),
+                play: button('jw-icon-playback', () => _api.play(null, reasonInteraction()), play),
+                rewind: button('jw-icon-rewind', () => this.rewind(), rewind),
                 next: nextButton,
                 elapsed: text('jw-text-elapsed', 'timer'),
                 countdown: text('jw-text-countdown', 'timer'),
@@ -159,8 +159,8 @@ define([
                 mute: muteButton,
                 volume: volumeSlider,
                 volumetooltip: volumeTooltip,
-                cast: createCastButton(() => { _api.castToggle(); }, this._localization),
-                fullscreen: button('jw-icon-fullscreen', () => { _api.setFullscreen(); }, this._localization.fullscreen)
+                cast: createCastButton(() => _api.castToggle(), this._localization),
+                fullscreen: button('jw-icon-fullscreen', () => _api.setFullscreen(), this._localization.fullscreen)
             };
 
             this.layout = {
