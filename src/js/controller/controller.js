@@ -769,12 +769,12 @@ define([
             this.isBeforeComplete = function () {
                 return _model.checkComplete();
             };
-            this.addButton = function(img, ariaText, callback, id, btnClass) {
+            this.addButton = function(img, tooltip, callback, id, btnClass) {
                 let customButtons = _model.get('customButtons') || [];
                 let added = false;
                 const newButton = {
                     img: img,
-                    ariaText: ariaText,
+                    tooltip: tooltip,
                     callback: callback,
                     id: id,
                     btnClass: btnClass
@@ -783,9 +783,11 @@ define([
                 customButtons = _.reduce(customButtons, function(buttons, button) {
                     if (button.id === newButton.id) {
                         added = true;
-                        return newButton;
+                        buttons.push(newButton);
+                    } else {
+                        buttons.push(button);
                     }
-                    return button;
+                    return buttons;
                 }, []);
 
                 if (!added) {

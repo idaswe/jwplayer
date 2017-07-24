@@ -522,7 +522,7 @@ define([
             for (let i = newButtons.length - 1; i >= 0; i--) {
                 const newButton = new CustomButton(
                     newButtons[i].img,
-                    newButtons[i].ariaText,
+                    newButtons[i].tooltip,
                     newButtons[i].callback,
                     newButtons[i].id,
                     newButtons[i].btnClass
