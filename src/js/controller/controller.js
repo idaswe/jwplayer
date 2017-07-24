@@ -798,7 +798,7 @@ define([
             };
             this.removeButton = function(id) {
                 let customButtons = _model.get('customButtons');
-                customButtons = _.filter(customButtons, (button) => button.id === id);
+                customButtons = _.filter(customButtons, (button) => button.id !== id);
 
                 _model.set('customButtons', customButtons);
 
